@@ -54,6 +54,18 @@ services:
       - PD_DELEGATOR_PUBLIC_HOSTNAME=localhost
       # Base Hostname of the PingFed service being used for Delegated Admin
       - PF_BASE_HOST=localhost
+
+    env_file:
+      - ~/.pingidentity/devops
+    #volumes:
+    #   - ${HOME}/projects/devops/volumes/simple-sync.pingdirectory:/opt/out
+    #   - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
+
+    ports:
+      - 1636:636
+      - 1443:443
+    networks:
+      - pingnet
   
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
