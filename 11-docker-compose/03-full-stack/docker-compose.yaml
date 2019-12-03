@@ -5,7 +5,7 @@ services:
     image: pingidentity/pingaccess:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingfederate:9031 -t 420 -- entrypoint.sh start-server
     environment: 
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_URL=https://github.com/jblantz/tpoc.git
       - SERVER_PROFILE_PATH=baseline/pingaccess
     env_file:
       # Configuration file created when setup.sh (Getting-started project root directory) is first run to source
@@ -24,29 +24,11 @@ services:
     networks:
       - pingnet-dmz
 
-  pingdatagovernance:
-    image: pingidentity/pingdatagovernance:${PING_IDENTITY_DEVOPS_TAG}
-    command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
-    environment: 
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=baseline/pingdatagovernance
-    env_file: 
-      - ~/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdatagovernance:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdatagovernance:/opt/in
-    ports:
-      - 8080:80
-      - 7443:443
-    networks:
-      - pingnet-dmz
-      - pingnet-internal
-
   pingfederate:
     image: pingidentity/pingfederate:${PING_IDENTITY_DEVOPS_TAG}
     command: wait-for pingdirectory:389 -t 300 -- entrypoint.sh start-server
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_URL=https://github.com/jblantz/tpoc.git
       - SERVER_PROFILE_PATH=baseline/pingfederate
     env_file:
       - ~/.pingidentity/devops
@@ -63,18 +45,15 @@ services:
   pingdirectory:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
-      - SERVER_PROFILE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_PATH=baseline/pingdirectory
-    env_file:
-      - ~/.pingidentity/devops
-    #volumes:
-    #  - ${HOME}/projects/devops/volumes/full-stack.pingdirectory:/opt/out
-    #  - ${HOME}/projects/devops/pingidentity-server-profiles/baseline/pingdirectory:/opt/in
-    ports:
-      - 1636-1646:636
-      - 1443-1453:443
-    networks:
-      - pingnet-internal
+      - SERVER_PROFILE_URL=https://github.com/jblantz/tpoc.git
+      - SERVER_PROFILE_PATH=baseline/pingdir
+      - SERVER_PROFILE_PARENT=BASELINE
+      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
+      - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
+      # PD Host of the Delegated Admin app
+      - PD_DELEGATOR_PUBLIC_HOSTNAME=localhost
+      # Base Hostname of the PingFed service being used for Delegated Admin
+      - PF_BASE_HOST=localhost
   
   pingdataconsole:
     image: pingidentity/pingdataconsole:${PING_IDENTITY_DEVOPS_TAG}
