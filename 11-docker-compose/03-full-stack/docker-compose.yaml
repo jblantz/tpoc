@@ -37,7 +37,6 @@ services:
       - SERVER_PROFILE_PATH=baseline/pingdirectory
       - PING_IDENTITY_DEVOPS_USER=chris.mickelson@state.mn.us
       - PING_IDENTITY_DEVOPS_KEY=54020f7a-373b-4e7d-9ec7-d116476fd0fe
-      - TOPOLOGY_PREFIX=03-full-stack_pingdirectory_
     ports:
       - 1636-1646:636
       - 1443-1453:443
