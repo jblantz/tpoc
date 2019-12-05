@@ -1,0 +1,13 @@
+ID=1489842
+Product=PingFederate
+Version=9.3
+IssueDate=2019-11-23
+Tier=Free
+ExpirationDate=2019-12-23
+EnforcementType=7
+SaasProvisioning=true
+WSTrustSTS=true
+OAuth=true
+Generator=WebAPI
+SignCode=FF07
+Signature=302C0214428A13E490DE9727C7BA7E6BEB27484B742C2A70021426DAEC41F6F42395A21F78AD66D9F64D353DF8FC
