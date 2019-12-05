@@ -46,14 +46,7 @@ services:
     image: pingidentity/pingdirectory:${PING_IDENTITY_DEVOPS_TAG}
     environment:
       - SERVER_PROFILE_URL=https://github.com/jblantz/tpoc.git
-      - SERVER_PROFILE_PATH=baseline/pingdir
-      - SERVER_PROFILE_PARENT=BASELINE
-      - SERVER_PROFILE_BASELINE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
-      - SERVER_PROFILE_BASELINE_PATH=baseline/pingdirectory
-      # PD Host of the Delegated Admin app
-      - PD_DELEGATOR_PUBLIC_HOSTNAME=localhost
-      # Base Hostname of the PingFed service being used for Delegated Admin
-      - PF_BASE_HOST=localhost
+      - SERVER_PROFILE_PATH=baseline/pingdirectory
 
     env_file:
       - ~/.pingidentity/devops
